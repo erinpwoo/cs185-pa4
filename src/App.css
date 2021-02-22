@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.tabs button {
+  background-color: darkslategray;
+  color: white;
+  font-size: 20px;
+  padding: 10px 60px;
+  display: flexbox;
+  border: 0;
+}
+
+.tabs {
+  background-color: darkslategray;
+}
+
