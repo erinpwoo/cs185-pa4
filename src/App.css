@@ -37,16 +37,7 @@
   }
 }
 
-.tabs button {
-  background-color: darkslategray;
-  color: white;
-  font-size: 20px;
-  padding: 10px 60px;
-  display: flexbox;
-  border: 0;
-}
-
-.tabs {
+.tab-bar {
   background-color: darkslategray;
 }
 
