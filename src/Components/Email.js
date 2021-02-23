@@ -4,30 +4,47 @@ class Email extends Component {
 
     constructor(props) {
         super(props);
-        this.inputRef = React.createRef
+        this.state = {
+            submitMsg: '',
+            email: ''
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    // Regex for valid email addresses: https://www.w3resource.com/javascript/form/email-validation.php
-    validateEmail(email, submitMsg) {
-        var submitMsg = document.getElementById("submitMsg");
+
+    handleChange(event) {
+        this.setState({
+            email: event.target.value
+        });
+    }
+
+    handleSubmit(event) {
+        // Regex for valid email addresses: https://www.w3resource.com/javascript/form/email-validation.php
         var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (submitMsg != null) {
-        submitMsg.style.visibility = "visible";
-            if (email.match(regex)) {
-                submitMsg.textContent = "Email successfully recorded."
+        if (this.state.email != '') {
+            if (this.state.email.match(regex)) {
+                this.setState({
+                    submitMsg: "Email successfully recorded."
+                })
             } else {
-                submitMsg.textContent = "Invalid email address."
+                this.setState({
+                    submitMsg: "Invalid email address."
+                })
             }
-        }   
+        } 
+        event.preventDefault();
     }
+    
+
     render() {
         return (
             <div class="email-form">
                 <h3>Enter an email and click submit</h3>
-                <form name="email">
-                    <input type='text' name='input' ref={this.inputRef}/>
+                <form name="email" onSubmit={this.handleSubmit}>
+                    <input type='text' name='input' value={this.state.email} onChange={this.handleChange}/>
+                    <input type='submit' value='Submit'/>
+                    <p id="submitMsg">{this.state.submitMsg}</p>
                 </form>
-                <button id="submit-btn" onClick={this.validateEmail(document.email.input.value)}>Submit</button>
-                <p id="submitMsg">Submit message.</p>
             </div>
         );
     }

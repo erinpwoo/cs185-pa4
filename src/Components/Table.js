@@ -7,11 +7,14 @@ class Table extends Component {
                 <p class="main-text">Some of my favorite albums:</p>
                 <div>
                     <table>
+                        <thead>
                         <tr>
                             <th>ARTIST</th>
                             <th>ALBUM</th>
                             <th>YEAR RELEASED</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td>Alabama Shakes</td>
                             <td>Sound & Color</td>
@@ -57,6 +60,7 @@ class Table extends Component {
                             <td>Choose Your Weapon</td>
                             <td>2015</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -42,7 +42,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div class="tab-bar">
+        <div className="tab-bar">
           <TabList tabs={tabs} activeTab={this.state.active} changeTab={this.changeTab}/>
         </div>
         <Body activeTab={this.state.active}/>
