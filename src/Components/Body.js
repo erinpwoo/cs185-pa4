@@ -4,7 +4,6 @@ import Images from './Images'
 import Table from './Table'
 import Videos from './Videos';
 import Email from './Email';
-import ScrollToTopBtn from './ScrollToTopBtn';
 
 class Body extends Component {
     render() {

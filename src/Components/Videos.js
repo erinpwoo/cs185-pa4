@@ -20,6 +20,23 @@ class Videos extends Component {
         })
     }
 
+    componentDidMount() {
+        document.addEventListener('click', this.handleClick)
+    }
+
+    handleClick = (event) => {
+        if (event.target.id == 'modal-window') {
+            let img = document.getElementById("modal-img")
+            if (img.tagName == "VIDEO") {
+                img.pause();
+            }
+            this.setState({
+                isModalOpen: false,
+                source: ''
+            })
+        }
+    }
+
     render() {
         return (
             <div class="videos">
