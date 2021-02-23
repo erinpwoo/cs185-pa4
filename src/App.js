@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './App.css';
 import Body from './Components/Body'
+import ScrollToTopBtn from './Components/ScrollToTopBtn';
 import TabList from './Components/TabList'
 
 class App extends Component {
@@ -44,6 +45,7 @@ class App extends Component {
           <TabList tabs={tabs} activeTab={this.state.active} changeTab={this.changeTab}/>
         </div>
         <Body activeTab={this.state.active}/>
+        <ScrollToTopBtn/>
       </div>
     );
   }

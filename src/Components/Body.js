@@ -1,4 +1,10 @@
 import { Component } from 'react';
+import Text from './Text'
+import Images from './Images'
+import Table from './Table'
+import Videos from './Videos';
+import Email from './Email';
+import ScrollToTopBtn from './ScrollToTopBtn';
 
 class Body extends Component {
     render() {
@@ -6,23 +12,38 @@ class Body extends Component {
             var activeTab = this.props.activeTab;
             if (activeTab === 1) {
                 return (
-                    <h1>Text</h1>
+                    <div class="body">
+                        <h1>ERIN'S MUSIC BLOG</h1>
+                        <Text/>
+                    </div>
                 );
             } else if (activeTab === 2) {
                 return (
-                    <h1>Image</h1>
+                    <div class="body">
+                        <h1>ERIN'S MUSIC BLOG</h1>
+                        <Images/>
+                    </div>
                 );
             } else if (activeTab === 3) {
                 return (
-                    <h1>Video</h1>
+                    <div class="body">
+                        <h1>ERIN'S MUSIC BLOG</h1>
+                        <Videos/>
+                    </div>
                 );
             } else if (activeTab === 4) {
                 return (
-                    <h1>Table</h1>
+                    <div class="body">
+                        <h1>ERIN'S MUSIC BLOG</h1>
+                        <Table/>
+                    </div>
                 );
             } else if (activeTab === 5) {
                 return (
-                    <h1>Email</h1>
+                    <div class="body">
+                        <h1>ERIN'S MUSIC BLOG</h1>
+                        <Email/>
+                    </div>
                 );
             }
         }
