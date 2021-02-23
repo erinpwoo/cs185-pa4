@@ -1,27 +1,40 @@
 import { Component } from 'react';
-import { openModal } from '../script'
+import Modal from './Modal'
 class Images extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false,
+            source: '',
+            mediaType: 'IMAGES'
+        };
+        this.openModal = this.openModal.bind(this)
+    }
+
+    openModal(event) {
+        this.setState({
+            isModalOpen: true,
+            source: event.target.getAttribute('src')
+        })
+    }
     render() {
         return (
             <div class="images">
-                <div id="modal-window" class="modal">
-                    <img class="modal-content" id="modal-img"></img>
-                    <div id="caption"></div>
-                </div>
+                { this.state.source && <Modal source={this.state.source} mediaType={this.state.mediaType}/> }
                 <div class="content-body">
                     <div class="row">
-                        <img src={'../images/IMG_0252.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_0970.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_1005.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_1020.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_1639.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_1706.JPG'} onClick={openModal}/>
-                        <img src={'../images/IMG_1753.JPG'} onClick={openModal}/>
-                        <img src={'../images/IMG_2086.JPG'} onClick={openModal}/>
-                        <img src={'../images/IMG_2323.JPG'} onClick={openModal}/>
-                        <img src={'../images/IMG_2808.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_6730.jpg'} onClick={openModal}/>
-                        <img src={'../images/IMG_1735.JPG'} onClick={openModal}/>
+                        <img src={'../images/IMG_0252.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_0970.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_1005.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_1020.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_1639.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_1706.JPG'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_1753.JPG'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_2086.JPG'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_2323.JPG'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_2808.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_6730.jpg'} onClick={this.openModal}/>
+                        <img src={'../images/IMG_1735.JPG'} onClick={this.openModal}/>
                     </div>
                 </div>
             </div>

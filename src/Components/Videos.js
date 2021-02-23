@@ -1,22 +1,37 @@
 import { Component } from 'react';
-import { openModal } from '../script'
+import Modal from './Modal'
 
 class Videos extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false,
+            source: '',
+            mediaType: 'VIDEOS'
+        };
+        this.openModal = this.openModal.bind(this)
+    }
+
+    openModal(event) {
+        this.setState({
+            isModalOpen: true,
+            source: event.target.getAttribute('src')
+        })
+    }
+
     render() {
         return (
             <div class="videos">
-                <div id="modal-window" class="modal">
-                    <img class="modal-content" id="modal-img"></img>
-                    <div id="caption"></div>
-                </div>
+                { this.state.source && <Modal source={this.state.source} mediaType={this.state.mediaType}/> }
                 <div class="content-body">
                     <div class="row">
-                        <video src="videos/IMG_1713.MOV" onClick={openModal}></video>
-                        <video src="videos/IMG_2311.MOV" onClick={openModal}></video>
-                        <video src="videos/IMG_0272.MOV" onClick={openModal}></video>
-                        <video src="videos/IMG_1039.MOV" onClick={openModal}></video>
-                        <video src="videos/IMG_0833.MOV" onClick={openModal}></video>
-                        <video src="videos/IMG_0490.MOV" onClick={openModal}></video>
+                        <video src={'../videos/IMG_1713.MOV'} onClick={this.openModal}></video>
+                        <video src={'../videos/IMG_2311.MOV'} onClick={this.openModal}></video>
+                        <video src={'../videos/IMG_0272.MOV'} onClick={this.openModal}></video>
+                        <video src={'../videos/IMG_1039.MOV'} onClick={this.openModal}></video>
+                        <video src={'../videos/IMG_0833.MOV'} onClick={this.openModal}></video>
+                        <video src={'../videos/IMG_0490.MOV'} onClick={this.openModal}></video>
                     </div>
                 </div>
             </div>
