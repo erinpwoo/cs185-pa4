@@ -31,7 +31,7 @@ class ScrollToTopBtn extends Component {
     }
 
     render() {
-        return <button id="scrollToTopBtn" onClick={this.scrollToTop}>⬆</button>
+        return <button className={this.state.isVisible? 'showButton': 'hideButton'} id="scrollToTopBtn" onClick={this.scrollToTop}>⬆</button>
     }
 }
 export default ScrollToTopBtn

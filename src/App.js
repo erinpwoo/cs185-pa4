@@ -3,6 +3,7 @@ import './App.css';
 import Body from './Components/Body'
 import ScrollToTopBtn from './Components/ScrollToTopBtn';
 import TabList from './Components/TabList'
+import ReactDOM from "react-dom";
 
 class App extends Component {
   constructor() {
@@ -45,10 +46,8 @@ class App extends Component {
           <TabList tabs={tabs} activeTab={this.state.active} changeTab={this.changeTab}/>
         </div>
         <Body activeTab={this.state.active}/>
-        <ScrollToTopBtn/>
       </div>
     );
   }
 }
-
 export default App;
