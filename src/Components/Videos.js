@@ -43,12 +43,12 @@ class Videos extends Component {
                 { this.state.source && <Modal source={this.state.source} mediaType={this.state.mediaType}/> }
                 <div class="content-body">
                     <div class="row">
-                        <video src={'/videos/IMG_1713.MOV'} onClick={this.openModal}></video>
-                        <video src={'/videos/IMG_2311.MOV'} onClick={this.openModal}></video>
-                        <video src={'/videos/IMG_0272.MOV'} onClick={this.openModal}></video>
-                        <video src={'/videos/IMG_1039.MOV'} onClick={this.openModal}></video>
-                        <video src={'/videos/IMG_0833.MOV'} onClick={this.openModal}></video>
-                        <video src={'/videos/IMG_0490.MOV'} onClick={this.openModal}></video>
+                        <video src={process.env.PUBLIC_URL + '/videos/IMG_1713.MOV'} onClick={this.openModal}></video>
+                        <video src={process.env.PUBLIC_URL + '/videos/IMG_2311.MOV'} onClick={this.openModal}></video>
+                        <video src={process.env.PUBLIC_URL + '/videos/IMG_0272.MOV'} onClick={this.openModal}></video>
+                        <video src={process.env.PUBLIC_URL + '/videos/IMG_1039.MOV'} onClick={this.openModal}></video>
+                        <video src={process.env.PUBLIC_URL + '/videos/IMG_0833.MOV'} onClick={this.openModal}></video>
+                        <video src={process.env.PUBLIC_URL + '/videos/IMG_0490.MOV'} onClick={this.openModal}></video>
                     </div>
                 </div>
             </div>
