@@ -41,18 +41,18 @@ class Images extends Component {
                 { this.state.isModalOpen && <Modal source={this.state.source} mediaType={this.state.mediaType}/> }
                 <div class="content-body">
                     <div class="row">
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_0252.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_0970.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_1005.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_1020.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_1639.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_1706.JPG'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_1753.JPG'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_2086.JPG'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_2323.JPG'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_2808.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_6730.jpg'} onClick={this.openModal}/>
-                        <img src={process.env.PUBLIC_URL + '/images/IMG_1735.JPG'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_0252.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_0970.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_1005.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_1020.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_1639.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_1706.JPG'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_1753.JPG'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_2086.JPG'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_2323.JPG'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_2808.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_6730.jpg'} onClick={this.openModal}/>
+                        <img src={'/images/IMG_1735.JPG'} onClick={this.openModal}/>
                     </div>
                 </div>
             </div>
