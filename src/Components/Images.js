@@ -41,7 +41,7 @@ class Images extends Component {
                 { this.state.isModalOpen && <Modal source={this.state.source} mediaType={this.state.mediaType}/> }
                 <div class="content-body">
                     <div class="row">
-                        <img src={process.env.PUBLIC_URL + '/assets/images/IMG_0252.jpg'} onClick={this.openModal}/>
+                        <img src={process.env.PUBLIC_URL + '/images/IMG_0252.jpg'} onClick={this.openModal}/>
                         <img src={process.env.PUBLIC_URL + '/images/IMG_0970.jpg'} onClick={this.openModal}/>
                         <img src={process.env.PUBLIC_URL + '/images/IMG_1005.jpg'} onClick={this.openModal}/>
                         <img src={process.env.PUBLIC_URL + '/images/IMG_1020.jpg'} onClick={this.openModal}/>
