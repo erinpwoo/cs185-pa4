@@ -49,7 +49,6 @@ class Body extends Component {
             else if (activeTab === 6) {
                 return (
                     <div class="body">
-                        <h1>ERIN'S MUSIC BLOG</h1>
                         <Zoom/>
                     </div>
                 );

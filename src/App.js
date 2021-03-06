@@ -38,6 +38,10 @@ class App extends Component {
     {
       id: 5,
       title: 'Email'
+    },
+    {
+      id: 6,
+      title: 'Zoom'
     }]
 
     return (

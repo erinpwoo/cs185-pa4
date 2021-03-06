@@ -201,3 +201,51 @@ p#submitMsg {
   color: white;
 }
 
+.meeting-form form {
+  width: 30%;
+  height: 56px;
+  border-radius: 4px;
+  position: relative;
+  transition: 0.3s all;
+  position: relative;
+  color: white;
+  margin: auto;
+}
+
+.meeting-form label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 15px;
+  color: darkgray;
+  padding: 10px;
+}
+
+/* Meeting form styling: https://codepen.io/SitePoint/pen/rNLjKRB?editors=1111 */
+
+.meeting-form input[type="text"] {
+  width: 100%;
+  background-color: lightgrey;
+  border: 0;
+  font-size: 15px;
+  border-radius: 3px;
+  padding: 1rem;
+  margin-top: 20px
+}
+
+.meeting-form input[type="checkbox"] {
+  margin: 10px;
+}
+
+.meeting-form input[type="submit"] {
+  border: 0;
+	background-color:#eb675e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+	padding:10px 20px;
+	text-decoration:none;
+  border-radius: 5px;
+}
+
