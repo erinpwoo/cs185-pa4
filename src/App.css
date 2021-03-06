@@ -239,13 +239,32 @@ p#submitMsg {
 
 .meeting-form input[type="submit"] {
   border: 0;
-	background-color:#eb675e;
-	display:inline-block;
+	background-color:#eb675eb1;
+	display:inline;
+  margin-right: 1em;
 	cursor:pointer;
 	color:#ffffff;
 	font-size:15px;
 	padding:10px 20px;
 	text-decoration:none;
   border-radius: 5px;
+  text-align: end;
+}
+
+.zoom-manager button {
+  border: 0;
+	background-color:#eb675e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+	padding:10px 20px;
+  position: relative;
+	text-decoration:none;
+  border-radius: 5px;
+}
+
+.zoom-manager .meetings-main {
+  text-align: center;
 }
 
