@@ -4,6 +4,7 @@ import Images from './Images'
 import Table from './Table'
 import Videos from './Videos';
 import Email from './Email';
+import Zoom from './Zoom';
 
 class Body extends Component {
     render() {
@@ -42,6 +43,14 @@ class Body extends Component {
                     <div class="body">
                         <h1>ERIN'S MUSIC BLOG</h1>
                         <Email/>
+                    </div>
+                );
+            }
+            else if (activeTab === 6) {
+                return (
+                    <div class="body">
+                        <h1>ERIN'S MUSIC BLOG</h1>
+                        <Zoom/>
                     </div>
                 );
             }
