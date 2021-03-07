@@ -18,6 +18,10 @@ class MeetingsList extends Component {
         this.fetchTasks = this.fetchTasks.bind(this)
     }
 
+    componentDidMount() {
+        this.fetchTasks();
+    }
+
     fetchTasks() {
         this.setState( () => {
             fetch("http://localhost:5000/tasks")
@@ -32,7 +36,6 @@ class MeetingsList extends Component {
     }
 
     render() {
-        this.fetchTasks();
         var rows = [];
         this.state.allTasks.forEach(task => {
             rows.push(
