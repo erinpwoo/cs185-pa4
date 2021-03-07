@@ -262,9 +262,14 @@ p#submitMsg {
   position: relative;
 	text-decoration:none;
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 .zoom-manager .meetings-main {
   text-align: center;
+}
+
+#errorMsg {
+  color: red;
 }
 

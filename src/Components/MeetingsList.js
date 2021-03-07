@@ -15,38 +15,29 @@ class MeetingsList extends Component {
                 textInfor: ""
             } 
         }
-        this.fetchTasks = this.fetchTasks.bind(this)
     }
 
     componentDidMount() {
-        this.fetchTasks();
-    }
-
-    fetchTasks() {
-        this.setState( () => {
-            fetch("http://localhost:5000/tasks")
-            .then(res => res.json())
-            .then(result => 
-                this.setState({
-                    allTasks: result
-                })
-            )
-            .catch(console.log("error"));
-        })
+        this.props.fetchTasks();
     }
 
     render() {
         var rows = [];
-        this.state.allTasks.forEach(task => {
+        this.props.allTasks.forEach(task => {
             rows.push(
                 <tr key={task.id}>
                     <td>{task.id}</td>
                     <td>{task.title}</td>
                     <td>{task.day}</td>
                     <td>{task.textInfor}</td>
+                    <td>{task.important? "Yes" : "No"}</td>
                 </tr>
             )
         })
+        if (rows.length === 0) {
+            return <h3>No meetings available.</h3>
+        }
+
         return (
             <div className="meetings-section">
                 <h2>Meetings List</h2>
@@ -57,6 +48,7 @@ class MeetingsList extends Component {
                             <th>Title</th>
                             <th>Date</th>
                             <th>Zoom link</th>
+                            <th>Is important?</th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>

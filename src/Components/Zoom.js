@@ -6,6 +6,7 @@ class Zoom extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            allTasks: [],
             createMeeting: false,
             newTitle: '',
             newDate: '',
@@ -17,6 +18,43 @@ class Zoom extends Component {
         this.onNewMeetingSubmit = this.onNewMeetingSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.displayFullSchedule = this.displayFullSchedule.bind(this)
+        this.fetchTasks = this.fetchTasks.bind(this)
+    }
+
+    componentDidMount() {
+        this.fetchTasks();
+    }
+
+    fetchTasks() {
+        this.setState( () => {
+            fetch("http://localhost:5000/tasks")
+            .then(res => res.json())
+            .then(result => 
+                this.setState({
+                    allTasks: result
+                })
+            )
+            .catch(console.log("error"));
+        })
+    }
+
+    postTask(title, date, link, isImportant) {
+        var id = this.state.allTasks[this.state.allTasks.length - 1].id + 1
+        var newDate = new Date(this.state.newDate)
+        var task = {
+            "id": id,
+            "important": this.state.isImportant,
+            "title": this.state.newTitle,
+            "day": newDate.toString(),
+            "textInfor": this.state.newLink
+        }
+        fetch("http://localhost:5000/tasks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(task)
+        })
     }
 
     onCreateMeeting(event) {
@@ -47,7 +85,7 @@ class Zoom extends Component {
         var errors = []
         // title
         if (title === '') {
-            errors += "Title must be non-empty." + "<br>"
+            errors += "Title must be non-empty.\n"
         }
         if (title.length > 30) {
             errors += "Title length must not exceed 30 characters.\n"
@@ -93,6 +131,7 @@ class Zoom extends Component {
         })
         if (errors == "") {
             // submit to db
+            this.postTask();
             // reset states
             this.setState({
                 createMeeting: false,
@@ -134,8 +173,8 @@ class Zoom extends Component {
                 <div className="zoom-manager">
                     <h1>Zoom Meeting Manager</h1>
                         <div className="meetings-main">
+                        <MeetingsList fetchTasks={this.fetchTasks} allTasks={this.state.allTasks}/>
                         <button onClick={this.onCreateMeeting}>Create Meeting</button>
-                        <MeetingsList/>
                     </div>
                 </div>
             );
