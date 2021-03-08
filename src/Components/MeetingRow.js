@@ -6,7 +6,7 @@ class MeetingsRow extends Component {
     }
     render() {
         return (     
-            <tr key={this.props.item.id}>
+            <tr onClick={() => this.props.editTask(this.props.item)} key={this.props.item.id}>
                 <td>{this.props.item.id}</td>
                 <td>{this.props.item.title}</td>
                 <td>{this.props.item.day}</td>

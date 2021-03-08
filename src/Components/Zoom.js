@@ -7,22 +7,48 @@ class Zoom extends Component {
         super(props);
         this.state = {
             allTasks: [],
-            createMeeting: false,
+            isCreateMeeting: false,
+            isEditMeeting: false,
             newTitle: '',
             newDate: '',
             newLink: '',
             isImportant: false,
-            errorMsg: ""
+            errorMsg: "",
+            selectedTask: {
+                id: 0,
+                important: false,
+                title: "",
+                day: "",
+                textInfor: ""
+            }
         }
         this.onCreateMeeting = this.onCreateMeeting.bind(this)
         this.onNewMeetingSubmit = this.onNewMeetingSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.displayFullSchedule = this.displayFullSchedule.bind(this)
         this.fetchTasks = this.fetchTasks.bind(this)
+        this.updateTask = this.updateTask.bind(this)
+        this.editTask = this.editTask.bind(this)
+        this.onEditMeetingSubmit = this.onEditMeetingSubmit.bind(this)
+        this.ISOToString = this.ISOToString.bind(this)
     }
 
     componentDidMount() {
         this.fetchTasks();
+    }
+
+    editTask(task) {
+        console.log(task.day)
+        this.setState({
+            isEditMeeting: true,
+            selectedTask: {
+                id: task.id,
+                important: task.important,
+                title: task.title,
+                day: this.ISOToString(task.day),
+                textInfor: task.textInfor
+            }
+        })
     }
 
     fetchTasks() {
@@ -38,7 +64,34 @@ class Zoom extends Component {
         })
     }
 
-    postTask(title, date, link, isImportant) {
+    updateTask() {
+        var newDate = new Date(this.state.newDate)
+        var task = {
+            "id": this.state.selectedTask.id,
+            "important": this.state.isImportant,
+            "title": this.state.newTitle,
+            "day": newDate.toISOString(),
+            "textInfor": this.state.newLink
+        }
+        fetch("http://localhost:5000/tasks/" + this.state.selectedTask.id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(task)
+        })
+        this.setState({
+            selectedTask: {
+                id: 0,
+                important: false,
+                title: "",
+                day: "",
+                textInfor: ""
+            }
+        })
+    }
+
+    postTask() {
         var id = this.state.allTasks[this.state.allTasks.length - 1].id + 1
         var newDate = new Date(this.state.newDate)
         var task = {
@@ -59,14 +112,15 @@ class Zoom extends Component {
 
     onCreateMeeting(event) {
         this.setState({
-            createMeeting: true
+            isCreateMeeting: true
         })
         event.preventDefault();
     }
 
     displayFullSchedule(event) {
         this.setState({
-            createMeeting: false
+            isCreateMeeting: false,
+            isEditMeeting: false
         })
         event.preventDefault();
     }
@@ -75,7 +129,7 @@ class Zoom extends Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-
+        console.log(name)
         this.setState({
             [name]: value
         });
@@ -93,7 +147,7 @@ class Zoom extends Component {
         
         // date
         var today = new Date();
-        var dateReg = /^\d{2}[/]\d{2}[/]\d{4}$/
+        var dateReg = /^\d{1,2}[/]\d{1,2}[/]\d{4}$/
         if (date.match(dateReg)) {
             if (!this.isDateValid(date, today)) {
                 errors += "Please enter a future date. \n"
@@ -118,6 +172,7 @@ class Zoom extends Component {
             return false;
         }
         if (parseInt(fields[1]) <= today.getDate()) {
+            console.log(fields)
             return false;
         }
         return true;
@@ -134,7 +189,7 @@ class Zoom extends Component {
             this.postTask();
             // reset states
             this.setState({
-                createMeeting: false,
+                isCreateMeeting: false,
                 newTitle: '',
                 newDate: '',
                 newLink: '',
@@ -142,12 +197,47 @@ class Zoom extends Component {
                 errorMsg: ''
             })
         }
-        
+        event.preventDefault();
+    }
+
+    ISOToString(iso) {
+        var date = new Date(iso)
+        return date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
+    } 
+
+    onEditMeetingSubmit(event) {
+        var dateStr = this.state.selectedTask.day;
+        this.setState({
+            newTitle: this.state.selectedTask.title,
+            newDate: dateStr,
+            newLink: this.state.selectedTask.textInfor,
+            isImportant: this.state.selectedTask.isImportant,
+            errorMsg: ''
+        })
+        var errors = this.validateInfo(this.state.selectedTask.title, dateStr, this.state.selectedTask.textInfor)
+        console.log(errors)
+        this.setState({
+            errorMsg: errors
+        })
+        if (errors == "") {
+            // submit to db
+            this.updateTask();
+            // reset states
+            this.setState({
+                isCreateMeeting: false,
+                isEditMeeting: false,
+                newTitle: '',
+                newDate: '',
+                newLink: '',
+                isImportant: false,
+                errorMsg: ''
+            })
+        }
         event.preventDefault();
     }
 
     render() {
-        if (this.state.createMeeting) {
+        if (this.state.isCreateMeeting) {
             return (
                 <div className="zoom-manager">
                     <h1>Zoom Meeting Manager</h1>
@@ -168,12 +258,33 @@ class Zoom extends Component {
                     </div>
                 </div>
             );
+        } else if (this.state.isEditMeeting) {
+            return (
+                <div className="zoom-manager">
+                    <h1>Zoom Meeting Manager</h1>
+                    <div className="meeting-form">
+                        <h3>Create new meeting:</h3>
+                        <form name="new-meeting" onSubmit={this.onEditMeetingSubmit}>
+                            <input type='text' defaultValue={this.state.selectedTask.title} name='newTitle' onChange={this.handleChange}/>
+                            <input type='text' defaultValue={this.state.selectedTask.day} name='newDate' onChange={this.handleChange}/>
+                            <input type='text' defaultValue={this.state.selectedTask.textInfor} name='newLink' onChange={this.handleChange}/>
+                            <label>
+                                Is important?
+                                <input type='checkbox' name='isImportant' onChange={this.handleChange}/>
+                            </label>
+                            <input className="save-meeting" type='submit' value='Save meeting'/>
+                            <button className="full-schedule" onClick={this.displayFullSchedule}>Full schedule</button>
+                            <p id="errorMsg">{this.state.errorMsg}</p>
+                        </form>
+                    </div>
+                </div>
+            )
         } else {
             return (
                 <div className="zoom-manager">
                     <h1>Zoom Meeting Manager</h1>
                         <div className="meetings-main">
-                        <MeetingsList fetchTasks={this.fetchTasks} allTasks={this.state.allTasks}/>
+                            <MeetingsList fetchTasks={this.fetchTasks} allTasks={this.state.allTasks} editTask={this.editTask}/>
                         <button onClick={this.onCreateMeeting}>Create Meeting</button>
                     </div>
                 </div>

@@ -15,17 +15,22 @@ class MeetingsList extends Component {
                 textInfor: ""
             } 
         }
+        this.editTask = this.editTask.bind(this)
     }
 
     componentDidMount() {
         this.props.fetchTasks();
     }
 
+    editTask(item) {
+        this.props.editTask(item);
+    }
+
     render() {
         var rows = [];
         this.props.allTasks.forEach(task => {
             rows.push(
-                <MeetingsRow item={task}/>
+                <MeetingsRow item={task} editTask={this.editTask}/>
             )
         })
         if (rows.length === 0) {
