@@ -171,7 +171,7 @@ class Zoom extends Component {
         if (parseInt(fields[2]) < today.getFullYear()) {
             return false;
         }
-        if (parseInt(fields[0]) < (today.getMonth())) {
+        if (parseInt(fields[0]) < (today.getMonth() + 1)) {
             return false;
         }
         if (parseInt(fields[1]) <= today.getDate()) {
@@ -279,7 +279,7 @@ class Zoom extends Component {
                             <input type='text' defaultValue={this.state.selectedTask.textInfor} name='newLink' onChange={this.handleChange}/>
                             <label>
                                 Is important?
-                                <input type='checkbox' name='isImportant' onChange={this.handleChange}/>
+                                <input type='checkbox' checked={this.state.selectedTask.important} name='isImportant' onChange={this.handleChange}/>
                             </label>
                             <input className="save-meeting" type='submit' value='Save meeting'/>
                             <button className="full-schedule" onClick={this.displayFullSchedule}>Full schedule</button>
