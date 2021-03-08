@@ -193,14 +193,8 @@ class Zoom extends Component {
     }
 
     isDateValid(date, today) {
-        var fields = date.split("/")
-        if (parseInt(fields[2]) < today.getFullYear()) {
-            return false;
-        }
-        if (parseInt(fields[0]) < (today.getMonth() + 1)) {
-            return false;
-        }
-        if (parseInt(fields[1]) <= today.getDate()) {
+        var fields = new Date(date)
+        if (fields < today) {
             return false;
         }
         return true;
@@ -298,7 +292,7 @@ class Zoom extends Component {
                 <div className="zoom-manager">
                     <h1>Zoom Meeting Manager</h1>
                     <div className="meeting-form">
-                        <h3>Create new meeting:</h3>
+                        <h3>Edit a meeting:</h3>
                         <form name="new-meeting" onSubmit={this.onEditMeetingSubmit}>
                             <input type='text' defaultValue={this.state.selectedTask.title} name='newTitle' onChange={this.handleChange}/>
                             <input type='text' defaultValue={this.state.selectedTask.day} name='newDate' onChange={this.handleChange}/>

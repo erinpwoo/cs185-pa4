@@ -289,3 +289,7 @@ p#submitMsg {
   z-index: 1;
   cursor:pointer;
 }
+
+.meetings-section p {
+  color: white;
+}

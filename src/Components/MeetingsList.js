@@ -45,6 +45,7 @@ class MeetingsList extends Component {
         return (
             <div className="meetings-section">
                 <h2>Meetings List</h2>
+                <p>Click on a row to edit meeting details.</p>
                 <table className="meetings-list">
                     <thead>
                         <tr>
