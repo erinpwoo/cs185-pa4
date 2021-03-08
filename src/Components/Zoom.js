@@ -40,7 +40,7 @@ class Zoom extends Component {
     }
 
     deleteTask(task) {
-        fetch("https://my-json-server.typicode.com/erinpwoo/cs185-json-server/tasks/" + task.id, {
+        fetch("http://localhost:5000/tasks/" + task.id, {
             method: "DELETE"
         })
         .then(this.fetchTasks())
@@ -84,7 +84,7 @@ class Zoom extends Component {
 
     fetchTasks() {
         this.setState( () => {
-            fetch("https://my-json-server.typicode.com/erinpwoo/cs185-json-server/tasks")
+            fetch("http://localhost:5000/tasks")
             .then(res => res.json())
             .then(result => 
                 this.setState({
@@ -97,7 +97,7 @@ class Zoom extends Component {
 
     updateTask() {
         var task = this.state.selectedTask
-        fetch("https://my-json-server.typicode.com/erinpwoo/cs185-json-server/tasks/" + this.state.selectedTask.id, {
+        fetch("http://localhost:5000/tasks/" + this.state.selectedTask.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -131,7 +131,7 @@ class Zoom extends Component {
             "day": newDate.toISOString(),
             "textInfor": this.state.newLink
         }
-        fetch("https://my-json-server.typicode.com/erinpwoo/cs185-json-server/tasks", {
+        fetch("http://localhost:5000/tasks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
