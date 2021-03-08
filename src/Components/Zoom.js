@@ -103,20 +103,21 @@ class Zoom extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(task)
-        })
-        var taskState = {
-            id: 0,
-            important: false,
-            title: "",
-            day: "",
-            textInfor: ""
-        }
-        this.setState({
-            selectedTask: taskState,
-            newTitle: '',
-            newDate: '',
-            newLink: '',
-            isImportant: false
+        }).then(() => {
+            var taskState = {
+                id: 0,
+                important: false,
+                title: "",
+                day: "",
+                textInfor: ""
+            }
+            this.setState({
+                selectedTask: taskState,
+                newTitle: '',
+                newDate: '',
+                newLink: '',
+                isImportant: false
+            })
         })
     }
 
@@ -304,7 +305,7 @@ class Zoom extends Component {
                             <input type='text' defaultValue={this.state.selectedTask.textInfor} name='newLink' onChange={this.handleChange}/>
                             <label>
                                 Is important?
-                                <input type='checkbox' checked={this.state.selectedTask.important} name='isImportant' onChange={this.handleChange}/>
+                                <input type='checkbox' defaultChecked={this.state.selectedTask.important} name='isImportant' onChange={this.handleChange}/>
                             </label>
                             <input className="save-meeting" type='submit' value='Save meeting'/>
                             <button className="full-schedule" onClick={this.displayFullSchedule}>Full schedule</button>
