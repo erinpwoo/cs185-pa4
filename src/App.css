@@ -281,3 +281,11 @@ p#submitMsg {
   background-color:#323844;
 }
 
+.trash {
+  width: 15px;
+  padding: 10px;
+  position:relative;
+  outline: none; 
+  z-index: 1;
+  cursor:pointer;
+}

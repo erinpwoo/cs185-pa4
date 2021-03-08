@@ -16,6 +16,7 @@ class MeetingsList extends Component {
             } 
         }
         this.editTask = this.editTask.bind(this)
+        this.deleteTask = this.deleteTask.bind(this)
     }
 
     componentDidMount() {
@@ -26,11 +27,15 @@ class MeetingsList extends Component {
         this.props.editTask(item);
     }
 
+    deleteTask(item) {
+        this.props.deleteTask(item)
+    }
+
     render() {
         var rows = [];
         this.props.allTasks.forEach(task => {
             rows.push(
-                <MeetingsRow item={task} editTask={this.editTask}/>
+                <MeetingsRow item={task} editTask={this.editTask} deleteTask={this.deleteTask}/>
             )
         })
         if (rows.length === 0) {
@@ -48,6 +53,7 @@ class MeetingsList extends Component {
                             <th>Date</th>
                             <th>Zoom link</th>
                             <th>Is important?</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>

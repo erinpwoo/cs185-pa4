@@ -29,6 +29,7 @@ class Zoom extends Component {
         this.fetchTasks = this.fetchTasks.bind(this)
         this.updateTask = this.updateTask.bind(this)
         this.editTask = this.editTask.bind(this)
+        this.deleteTask = this.deleteTask.bind(this)
         this.onEditMeetingSubmit = this.onEditMeetingSubmit.bind(this)
         this.ISOToString = this.ISOToString.bind(this)
         this.stringToISO = this.stringToISO.bind(this)
@@ -36,6 +37,30 @@ class Zoom extends Component {
 
     componentDidMount() {
         this.fetchTasks();
+    }
+
+    deleteTask(task) {
+        fetch("http://localhost:5000/tasks/" + task.id, {
+            method: "DELETE"
+        })
+        .then(this.fetchTasks())
+        var defaultState = {
+            id: 0,
+            important: false,
+            title: "",
+            day: "",
+            textInfor: ""
+        }
+        this.setState({
+            isEditMeeting: false,
+            isCreateMeeting: false,
+            selectedTask: defaultState,
+            newTitle: '',
+            newDate: '',
+            newLink: '',
+            isImportant: false,
+            errorMsg: "",
+        })
     }
 
     editTask(task) {
@@ -293,7 +318,7 @@ class Zoom extends Component {
                 <div className="zoom-manager">
                     <h1>Zoom Meeting Manager</h1>
                         <div className="meetings-main">
-                            <MeetingsList fetchTasks={this.fetchTasks} allTasks={this.state.allTasks} editTask={this.editTask}/>
+                            <MeetingsList fetchTasks={this.fetchTasks} allTasks={this.state.allTasks} editTask={this.editTask} deleteTask={this.deleteTask}/>
                         <button onClick={this.onCreateMeeting}>Create Meeting</button>
                     </div>
                 </div>
