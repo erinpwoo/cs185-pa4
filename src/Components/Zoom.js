@@ -31,6 +31,7 @@ class Zoom extends Component {
         this.editTask = this.editTask.bind(this)
         this.onEditMeetingSubmit = this.onEditMeetingSubmit.bind(this)
         this.ISOToString = this.ISOToString.bind(this)
+        this.stringToISO = this.stringToISO.bind(this)
     }
 
     componentDidMount() {
@@ -38,16 +39,21 @@ class Zoom extends Component {
     }
 
     editTask(task) {
-        console.log(task.day)
+        var taskState = {
+            id: task.id,
+            important: task.important,
+            title: task.title,
+            day: this.ISOToString(task.day),
+            textInfor: task.textInfor
+        }
         this.setState({
             isEditMeeting: true,
-            selectedTask: {
-                id: task.id,
-                important: task.important,
-                title: task.title,
-                day: this.ISOToString(task.day),
-                textInfor: task.textInfor
-            }
+            newTitle: task.title,
+            newDate: this.ISOToString(task.day),
+            newLink: task.textInfor,
+            isImportant: task.important,
+            selectedTask: taskState,
+            errorMsg: ''
         })
     }
 
@@ -65,14 +71,7 @@ class Zoom extends Component {
     }
 
     updateTask() {
-        var newDate = new Date(this.state.newDate)
-        var task = {
-            "id": this.state.selectedTask.id,
-            "important": this.state.isImportant,
-            "title": this.state.newTitle,
-            "day": newDate.toISOString(),
-            "textInfor": this.state.newLink
-        }
+        var task = this.state.selectedTask
         fetch("http://localhost:5000/tasks/" + this.state.selectedTask.id, {
             method: "PUT",
             headers: {
@@ -80,14 +79,19 @@ class Zoom extends Component {
             },
             body: JSON.stringify(task)
         })
+        var taskState = {
+            id: 0,
+            important: false,
+            title: "",
+            day: "",
+            textInfor: ""
+        }
         this.setState({
-            selectedTask: {
-                id: 0,
-                important: false,
-                title: "",
-                day: "",
-                textInfor: ""
-            }
+            selectedTask: taskState,
+            newTitle: '',
+            newDate: '',
+            newLink: '',
+            isImportant: false
         })
     }
 
@@ -129,7 +133,6 @@ class Zoom extends Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(name)
         this.setState({
             [name]: value
         });
@@ -168,11 +171,10 @@ class Zoom extends Component {
         if (parseInt(fields[2]) < today.getFullYear()) {
             return false;
         }
-        if (parseInt(fields[0]) < today.getMonth()) {
+        if (parseInt(fields[0]) < (today.getMonth())) {
             return false;
         }
         if (parseInt(fields[1]) <= today.getDate()) {
-            console.log(fields)
             return false;
         }
         return true;
@@ -202,37 +204,44 @@ class Zoom extends Component {
 
     ISOToString(iso) {
         var date = new Date(iso)
-        return date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
+        return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
     } 
 
+    stringToISO(date) {
+        return new Date(date).toISOString()
+    }
+
     onEditMeetingSubmit(event) {
-        var dateStr = this.state.selectedTask.day;
-        this.setState({
-            newTitle: this.state.selectedTask.title,
-            newDate: dateStr,
-            newLink: this.state.selectedTask.textInfor,
-            isImportant: this.state.selectedTask.isImportant,
-            errorMsg: ''
-        })
-        var errors = this.validateInfo(this.state.selectedTask.title, dateStr, this.state.selectedTask.textInfor)
-        console.log(errors)
-        this.setState({
-            errorMsg: errors
-        })
-        if (errors == "") {
-            // submit to db
-            this.updateTask();
-            // reset states
-            this.setState({
-                isCreateMeeting: false,
-                isEditMeeting: false,
-                newTitle: '',
-                newDate: '',
-                newLink: '',
-                isImportant: false,
-                errorMsg: ''
-            })
+        var taskState = {
+            id: this.state.selectedTask.id,
+            important: this.state.isImportant,
+            title: this.state.newTitle,
+            day: this.stringToISO(this.state.newDate),
+            textInfor: this.state.newLink
         }
+        this.setState({
+            selectedTask: taskState,
+            errorMsg: ''
+        }, () => {
+            var errors = this.validateInfo(this.state.newTitle, this.state.newDate, this.state.newLink)
+            this.setState({
+                errorMsg: errors
+            })
+            if (errors == "") {
+                // submit to db
+                this.updateTask();
+                // reset states
+                this.setState({
+                    isCreateMeeting: false,
+                    isEditMeeting: false,
+                    newTitle: '',
+                    newDate: '',
+                    newLink: '',
+                    isImportant: false,
+                    errorMsg: ''
+                })
+            }
+        })
         event.preventDefault();
     }
 
