@@ -265,6 +265,10 @@ p#submitMsg {
   margin-top: 20px;
 }
 
+.meetings-section a {
+  color:mediumturquoise
+}
+
 .zoom-manager .meetings-main {
   text-align: center;
 }

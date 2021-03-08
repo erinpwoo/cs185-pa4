@@ -45,7 +45,7 @@ class Zoom extends Component {
             "id": id,
             "important": this.state.isImportant,
             "title": this.state.newTitle,
-            "day": newDate.toString(),
+            "day": newDate.toISOString(),
             "textInfor": this.state.newLink
         }
         fetch("http://localhost:5000/tasks", {

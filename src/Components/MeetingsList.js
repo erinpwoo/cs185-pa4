@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import TabList from './TabList';
+import MeetingsRow from './MeetingRow'
 
 class MeetingsList extends Component {
 
@@ -25,13 +25,7 @@ class MeetingsList extends Component {
         var rows = [];
         this.props.allTasks.forEach(task => {
             rows.push(
-                <tr key={task.id}>
-                    <td>{task.id}</td>
-                    <td>{task.title}</td>
-                    <td>{task.day}</td>
-                    <td>{task.textInfor}</td>
-                    <td>{task.important? "Yes" : "No"}</td>
-                </tr>
+                <MeetingsRow item={task}/>
             )
         })
         if (rows.length === 0) {
